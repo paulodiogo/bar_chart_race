@@ -867,7 +867,7 @@ def pyramid_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=N
         'medium', 'large', 'x-large', 'xx-large', 'smaller', 'larger'
     These sizes are relative to plt.rcParams['font.size'].
     '''
-    bcr = _BarChartRace(df, filename, orientation, sort, n_bars, fixed_order, fixed_max,
+    bcr = _PyramidChartRace(df, filename, orientation, sort, n_bars, fixed_order, fixed_max,
                         steps_per_period, period_length, end_period_pause, interpolate_period, 
                         period_label, period_template, period_summary_func, perpendicular_bar_func,
                         colors, title, bar_size, bar_textposition, bar_texttemplate, 
