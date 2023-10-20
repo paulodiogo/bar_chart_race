@@ -15,7 +15,7 @@ class _PyramidChartRace(CommonChart):
     def __init__(self, dfLeft, dfRight, filename, orientation, sort, n_bars, fixed_order, fixed_max,
                  steps_per_period, period_length, end_period_pause, interpolate_period, 
                  period_label, period_template, period_summary_func, perpendicular_bar_func, 
-                 colors, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
+                 colors, colors_right, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
                  tick_label_font, tick_template, shared_fontdict, scale, fig, writer, 
                  bar_kwargs, fig_kwargs, filter_column_colors):
         self.filename = filename
@@ -54,6 +54,7 @@ class _PyramidChartRace(CommonChart):
         self.df_values_right, self.df_ranks_right = self.prepare_data(dfRight)
         self.col_filt = self.get_col_filt()
         self.bar_colors = self.get_bar_colors(colors)
+        self.bar_colors_right = self.get_bar_colors(colors_right)
         self.str_index = self.df_values.index.astype('str')
         self.fig_kwargs = self.get_fig_kwargs(fig_kwargs)
         self.subplots_adjust = self.get_subplots_adjust()
@@ -347,7 +348,7 @@ class _PyramidChartRace(CommonChart):
         bar_location = bar_location[top_filt]
         bar_length = self.df_values_right.iloc[i].values[top_filt]
         cols = self.df_values_right.columns[top_filt]
-        colors = self.bar_colors[top_filt]
+        colors = self.bar_colors_right[top_filt]
         return bar_location, bar_length, cols, colors
 
     def set_major_formatter(self, ax):
@@ -526,7 +527,7 @@ def pyramid_chart_race(dfLeft, dfRight, filename=None, orientation='h', sort='de
                    fixed_order=False, fixed_max=False, steps_per_period=10, 
                    period_length=500, end_period_pause=0, interpolate_period=False, 
                    period_label=True, period_template=None, period_summary_func=None,
-                   perpendicular_bar_func=None, colors=None, title=None, bar_size=.95,
+                   perpendicular_bar_func=None, colors=None, colors_right=None, title=None, bar_size=.95,
                    bar_textposition='outside', bar_texttemplate='{x:,.0f}',
                    bar_label_font=None, tick_label_font=None, tick_template='{x:,.0f}',
                    shared_fontdict=None, scale='linear', fig=None, writer=None, 
@@ -883,7 +884,7 @@ def pyramid_chart_race(dfLeft, dfRight, filename=None, orientation='h', sort='de
     bcr = _PyramidChartRace(dfLeft, dfRight, filename, orientation, sort, n_bars, fixed_order, fixed_max,
                         steps_per_period, period_length, end_period_pause, interpolate_period, 
                         period_label, period_template, period_summary_func, perpendicular_bar_func,
-                        colors, title, bar_size, bar_textposition, bar_texttemplate, 
+                        colors, colors_right, title, bar_size, bar_textposition, bar_texttemplate, 
                         bar_label_font, tick_label_font, tick_template, shared_fontdict, scale, 
                         fig, writer, bar_kwargs, fig_kwargs, filter_column_colors)
     return bcr.make_animation()
