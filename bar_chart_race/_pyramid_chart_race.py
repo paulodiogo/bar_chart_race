@@ -470,6 +470,7 @@ class _PyramidChartRace(CommonChart):
         def init_func():
             ax = self.fig.axes[0]
             self.plot_bars(ax, 0)
+            ax.legend()
 
         interval = self.period_length / self.steps_per_period
         pause = int(self.end_period_pause // interval)
