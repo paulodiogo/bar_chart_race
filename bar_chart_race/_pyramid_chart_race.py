@@ -12,7 +12,7 @@ from ._utils import prepare_wide_data
 
 class _PyramidChartRace(CommonChart):
     
-    def __init__(self, df, filename, orientation, sort, n_bars, fixed_order, fixed_max,
+    def __init__(self, dfLeft, dfRight, filename, orientation, sort, n_bars, fixed_order, fixed_max,
                  steps_per_period, period_length, end_period_pause, interpolate_period, 
                  period_label, period_template, period_summary_func, perpendicular_bar_func, 
                  colors, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
@@ -22,7 +22,7 @@ class _PyramidChartRace(CommonChart):
         self.extension = self.get_extension()
         self.orientation = orientation
         self.sort = sort
-        self.n_bars = n_bars or df.shape[1]
+        self.n_bars = n_bars or dfLeft.shape[1]
         self.fixed_order = fixed_order
         self.fixed_max = fixed_max
         self.steps_per_period = steps_per_period
@@ -50,7 +50,8 @@ class _PyramidChartRace(CommonChart):
 
         self.bar_kwargs = self.get_bar_kwargs(bar_kwargs)
         self.html = self.filename is None
-        self.df_values, self.df_ranks = self.prepare_data(df)
+        self.df_values, self.df_ranks = self.prepare_data(dfLeft)
+        self.df_values_right, self.df_ranks_right = self.prepare_data(dfRight)
         self.col_filt = self.get_col_filt()
         self.bar_colors = self.get_bar_colors(colors)
         self.str_index = self.df_values.index.astype('str')
@@ -340,6 +341,15 @@ class _PyramidChartRace(CommonChart):
         colors = self.bar_colors[top_filt]
         return bar_location, bar_length, cols, colors
 
+    def get_bar_info_right(self, i):
+        bar_location = self.df_ranks_right.iloc[i].values
+        top_filt = (bar_location > 0) & (bar_location < self.n_bars + 1)
+        bar_location = bar_location[top_filt]
+        bar_length = self.df_values_right.iloc[i].values[top_filt]
+        cols = self.df_values_right.columns[top_filt]
+        colors = self.bar_colors[top_filt]
+        return bar_location, bar_length, cols, colors
+
     def set_major_formatter(self, ax):
         if self.tick_template:
             axis = ax.xaxis if self.orientation == 'h' else ax.yaxis
@@ -347,9 +357,12 @@ class _PyramidChartRace(CommonChart):
 
     def plot_bars(self, ax, i):
         bar_location, bar_length, cols, colors = self.get_bar_info(i)
+        bar_location_right, bar_length_right, cols_right, colors_right = self.get_bar_info_right(i)
         if self.orientation == 'h':
             ax.barh(bar_location, bar_length, tick_label=cols, 
                     color=colors, **self.bar_kwargs)
+            ax.barh(bar_location_right, bar_length_right, tick_label=cols_right, 
+                    color=colors_right, **self.bar_kwargs)
             ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
@@ -509,7 +522,7 @@ class _PyramidChartRace(CommonChart):
         return ret_val
 
 
-def pyramid_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None, 
+def pyramid_chart_race(dfLeft, dfRight, filename=None, orientation='h', sort='desc', n_bars=None, 
                    fixed_order=False, fixed_max=False, steps_per_period=10, 
                    period_length=500, end_period_pause=0, interpolate_period=False, 
                    period_label=True, period_template=None, period_summary_func=None,
@@ -867,7 +880,7 @@ def pyramid_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=N
         'medium', 'large', 'x-large', 'xx-large', 'smaller', 'larger'
     These sizes are relative to plt.rcParams['font.size'].
     '''
-    bcr = _PyramidChartRace(df, filename, orientation, sort, n_bars, fixed_order, fixed_max,
+    bcr = _PyramidChartRace(dfLeft, dfRight, filename, orientation, sort, n_bars, fixed_order, fixed_max,
                         steps_per_period, period_length, end_period_pause, interpolate_period, 
                         period_label, period_template, period_summary_func, perpendicular_bar_func,
                         colors, title, bar_size, bar_textposition, bar_texttemplate, 
