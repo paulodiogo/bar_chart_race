@@ -17,7 +17,10 @@ class _PyramidChartRace(CommonChart):
                  period_label, period_template, period_summary_func, perpendicular_bar_func, 
                  colors, colors_right, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
                  tick_label_font, tick_template, shared_fontdict, scale, fig, writer, 
-                 bar_kwargs, fig_kwargs, filter_column_colors):
+                 bar_kwargs, fig_kwargs, filter_column_colors,
+                    label_right, label_left):
+        self.label_right = label_right
+        self.label_left = label_left
         self.filename = filename
         self.extension = self.get_extension()
         self.orientation = orientation
@@ -357,9 +360,9 @@ class _PyramidChartRace(CommonChart):
         bar_location_right, bar_length_right, cols_right, colors_right = self.get_bar_info_right(i)
         if self.orientation == 'h':
             ax.barh(bar_location, bar_length, tick_label=cols, 
-                    color=colors, **self.bar_kwargs)
+                    color=colors, label=self.label_left, **self.bar_kwargs)
             ax.barh(bar_location_right, bar_length_right, tick_label=cols_right, 
-                    color=colors_right, **self.bar_kwargs)
+                    color=colors_right, label=self.label_right, **self.bar_kwargs)
 
         self.set_major_formatter(ax)
         self.add_period_label(ax, i)
@@ -519,7 +522,8 @@ def pyramid_chart_race(dfLeft, dfRight, filename=None, orientation='h', sort='de
                    bar_textposition='outside', bar_texttemplate='{x:,.0f}',
                    bar_label_font=None, tick_label_font=None, tick_template='{x:,.0f}',
                    shared_fontdict=None, scale='linear', fig=None, writer=None, 
-                   bar_kwargs=None,  fig_kwargs=None, filter_column_colors=False):
+                   bar_kwargs=None,  fig_kwargs=None, filter_column_colors=False,
+                   label_right='RIGHT', label_left='LEFT'):
     '''
     Create an animated bar chart race using matplotlib. Data must be in 
     'wide' format where each row represents a single time period and each 
@@ -874,5 +878,6 @@ def pyramid_chart_race(dfLeft, dfRight, filename=None, orientation='h', sort='de
                         period_label, period_template, period_summary_func, perpendicular_bar_func,
                         colors, colors_right, title, bar_size, bar_textposition, bar_texttemplate, 
                         bar_label_font, tick_label_font, tick_template, shared_fontdict, scale, 
-                        fig, writer, bar_kwargs, fig_kwargs, filter_column_colors)
+                        fig, writer, bar_kwargs, fig_kwargs, filter_column_colors,
+                        label_right, label_left)
     return bcr.make_animation()
