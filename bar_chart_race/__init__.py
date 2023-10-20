@@ -7,7 +7,7 @@ from ._line_chart_race import line_chart_race
 from ._utils import load_dataset, prepare_wide_data, prepare_long_data
 from . import _pandas_accessor
 
-__version__ = '0.2.11'
+__version__ = '0.2.12'
 __all__ = [
     'bar_chart_race', 
     'pyramid_chart_race', 
