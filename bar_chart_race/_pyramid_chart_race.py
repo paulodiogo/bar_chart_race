@@ -367,8 +367,8 @@ class _PyramidChartRace(CommonChart):
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
                 new_max_pixels = ax.transData.transform((max_bar, 0))[0] + self.extra_pixels
-                new_xmax = ax.transData.inverted().transform((new_max_pixels, 0))[0]
-                ax.set_xlim(ax.get_xlim()[0], new_xmax)
+                #new_xmax = ax.transData.inverted().transform((new_max_pixels, 0))[0]
+                #ax.set_xlim(ax.get_xlim()[0], new_xmax)
         else:
             ax.bar(bar_location, bar_length, tick_label=cols, 
                    color=colors, **self.bar_kwargs)
