@@ -428,7 +428,7 @@ class _PyramidChartRace(CommonChart):
 
                 text_obj = ax.text(xtext1, ytext1, text1, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
-                text_obj = ax.text(0, ytext2, text2, clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(xtext2, 5, text2, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
             return text_objs
 
