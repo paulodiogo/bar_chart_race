@@ -275,7 +275,7 @@ class _PyramidChartRace(CommonChart):
         plot_func(bar_location, bar_length, tick_label=cols)
                 
         self.prepare_axes(ax)
-        texts = self.add_bar_labels(ax, bar_location, bar_length)
+        texts = self.add_bar_labels(ax, bar_location, bar_length, bar_location, bar_length)
 
         fig.canvas.print_figure(io.BytesIO(), format='png')
         xmin = min(label.get_window_extent().x0 for label in ax.get_yticklabels()) 
@@ -368,7 +368,7 @@ class _PyramidChartRace(CommonChart):
         self.set_major_formatter(ax)
         self.add_period_label(ax, i)
         self.add_period_summary(ax, i)
-        self.add_bar_labels(ax, bar_location, bar_length)
+        self.add_bar_labels(ax, bar_location, bar_length,  bar_location_right, bar_length_right)
         self.add_perpendicular_bar(ax, bar_length, i)
 
     def add_period_label(self, ax, i):
