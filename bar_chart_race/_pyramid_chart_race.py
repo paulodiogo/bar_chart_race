@@ -320,7 +320,7 @@ class _PyramidChartRace(CommonChart):
 
 
 
-        ax.set_xlim(-.9, .9)
+        ax.set_xlim(-.09, .09)
 
     def create_figure(self):
         fig = plt.Figure(**self.fig_kwargs)
