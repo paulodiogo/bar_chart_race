@@ -417,8 +417,8 @@ class _PyramidChartRace(CommonChart):
                     val2 = x2
 
                 if callable(self.bar_texttemplate):
-                    text = self.bar_texttemplate(val1)
-                    text = self.bar_texttemplate(val2)
+                    text1 = self.bar_texttemplate(val1)
+                    text2 = self.bar_texttemplate(val2)
                 else:
                     text1 = self.bar_texttemplate.format(x=val1)
                     text2 = self.bar_texttemplate.format(x=val2)
@@ -428,7 +428,7 @@ class _PyramidChartRace(CommonChart):
 
                 text_obj = ax.text(xtext1, ytext1, text1, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
-                text_obj = ax.text(xtext2, ytext2, text2, clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(0, 5, text2, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
             return text_objs
 
