@@ -399,33 +399,36 @@ class _PyramidChartRace(CommonChart):
                                   '"x", "y", and "s"')
             ax.text(transform=ax.transAxes, **text_dict)
 
-    def add_bar_labels(self, ax, bar_location, bar_length):
+    def add_bar_labels(self, ax, bar_location, bar_length, bar_location_right, bar_length_right):
         if self.bar_textposition:
             if self.orientation == 'h':
-                zipped = zip(bar_length, bar_location)
-            else:
-                zipped = zip(bar_location, bar_length)
+                zipped = zip(bar_length, bar_location, bar_location_right, bar_length_right)            
 
             delta = .01 if self.bar_textposition == 'outside' else -.01
 
             text_objs = []
-            for x1, y1 in zipped:
-                xtext, ytext = ax.transLimits.transform((x1, y1))
+            for x1, y1, x2, y2 in zipped:
+                xtext1, ytext1 = ax.transLimits.transform((x1, y1))
+                xtext2, ytext2 = ax.transLimits.transform((x2, y2))
                 if self.orientation == 'h':
-                    xtext += delta
-                    val = x1
-                else:
-                    ytext += delta
-                    val = y1
+                    xtext1 += delta
+                    xtext2 += delta
+                    val1 = x1
+                    val2 = x2
 
                 if callable(self.bar_texttemplate):
-                    text = self.bar_texttemplate(val)
+                    text = self.bar_texttemplate(val1)
+                    text = self.bar_texttemplate(val2)
                 else:
-                    text = self.bar_texttemplate.format(x=val)
+                    text1 = self.bar_texttemplate.format(x=val1)
+                    text2 = self.bar_texttemplate.format(x=val2)
 
-                xtext, ytext = ax.transLimits.inverted().transform((xtext, ytext))
+                xtext1, ytext1 = ax.transLimits.inverted().transform((xtext1, ytext1))
+                xtext2, ytext2 = ax.transLimits.inverted().transform((xtext2, ytext2))
 
-                text_obj = ax.text(0, 0, text, clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(xtext1, ytext1, text1, clip_on=True, **self.bar_label_font)
+                text_objs.append(text_obj)
+                text_obj = ax.text(xtext2, ytext2, text2, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
             return text_objs
 
