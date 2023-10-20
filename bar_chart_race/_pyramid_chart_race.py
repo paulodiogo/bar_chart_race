@@ -407,6 +407,7 @@ class _PyramidChartRace(CommonChart):
             delta = .01 if self.bar_textposition == 'outside' else -.01
 
             text_objs = []
+            yl = 0
             for x1, y1, x2, y2 in zipped:
                 xtext1, ytext1 = ax.transLimits.transform((x1, y1))
                 xtext2, ytext2 = ax.transLimits.transform((x2, y2))
@@ -428,7 +429,8 @@ class _PyramidChartRace(CommonChart):
 
                 text_obj = ax.text(xtext1, ytext1, text1, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
-                text_obj = ax.text(xtext2, 5, text2, clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(0, yl, text2+": "+str((xtext2, ytext2)), clip_on=True, **self.bar_label_font)
+                yl += 1
                 text_objs.append(text_obj)
             return text_objs
 
