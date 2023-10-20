@@ -425,9 +425,9 @@ class _PyramidChartRace(CommonChart):
 
                 xtext, ytext = ax.transLimits.inverted().transform((xtext, ytext))
 
-                #text_obj = ax.text(xtext, ytext, text, clip_on=True, **self.bar_label_font)
-                #text_objs.append(text_obj)
-            return "text_objs"
+                text_obj = ax.text(0, 0, text, clip_on=True, **self.bar_label_font)
+                text_objs.append(text_obj)
+            return text_objs
 
     def add_perpendicular_bar(self, ax, bar_length, i):
         if self.perpendicular_bar_func:
