@@ -364,21 +364,6 @@ class _PyramidChartRace(CommonChart):
                     color=colors, **self.bar_kwargs)
             ax.barh(bar_location_right, bar_length_right, tick_label=cols_right, 
                     color=colors_right, **self.bar_kwargs)
-            #ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font)
-            #if not self.fixed_max and self.bar_textposition == 'outside':
-            #    max_bar = bar_length.max()
-            #    new_max_pixels = ax.transData.transform((max_bar, 0))[0] + self.extra_pixels
-                #new_xmax = ax.transData.inverted().transform((new_max_pixels, 0))[0]
-                #ax.set_xlim(ax.get_xlim()[0], new_xmax)
-        else:
-            ax.bar(bar_location, bar_length, tick_label=cols, 
-                   color=colors, **self.bar_kwargs)
-            ax.set_xticklabels(ax.get_xticklabels(), **self.tick_label_font)
-            if not self.fixed_max and self.bar_textposition == 'outside':
-                max_bar = bar_length.max()
-                new_max_pixels = ax.transData.transform((0, max_bar))[1] + self.extra_pixels
-                new_ymax = ax.transData.inverted().transform((0, new_max_pixels))[1]
-                ax.set_ylim(ax.get_ylim()[0], new_ymax)
 
         self.set_major_formatter(ax)
         self.add_period_label(ax, i)
@@ -440,9 +425,9 @@ class _PyramidChartRace(CommonChart):
 
                 xtext, ytext = ax.transLimits.inverted().transform((xtext, ytext))
 
-                text_obj = ax.text(xtext, ytext, text, clip_on=True, **self.bar_label_font)
-                text_objs.append(text_obj)
-            return text_objs
+                #text_obj = ax.text(xtext, ytext, text, clip_on=True, **self.bar_label_font)
+                #text_objs.append(text_obj)
+            return "text_objs"
 
     def add_perpendicular_bar(self, ax, bar_length, i):
         if self.perpendicular_bar_func:
