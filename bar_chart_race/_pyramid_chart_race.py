@@ -427,7 +427,7 @@ class _PyramidChartRace(CommonChart):
                 xtext1, ytext1 = ax.transLimits.inverted().transform((xtext1, ytext1))
                 xtext2, ytext2 = ax.transLimits.inverted().transform((xtext2, ytext2))
 
-                text_obj = ax.text(xtext1, ytext1, text1+": "+str((xtext2, ytext2)), clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(xtext1, ytext1, text1+": "+str((xtext1, ytext1)), clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
                 #text_obj = ax.text(0, yl, text2+": "+str((xtext2, ytext2)), clip_on=True, **self.bar_label_font)
                 yl += 1
