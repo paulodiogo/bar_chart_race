@@ -404,8 +404,8 @@ class _PyramidChartRace(CommonChart):
             if self.orientation == 'h':
                 zipped = zip(bar_length, bar_location, bar_length_right, bar_location_right)            
 
-            delta1 = -2
-            delta2 = .05
+            delta1 = -.05
+            delta2 = .02
 
             text_objs = []
             yl = 0
