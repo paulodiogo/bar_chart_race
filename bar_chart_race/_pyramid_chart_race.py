@@ -402,9 +402,10 @@ class _PyramidChartRace(CommonChart):
     def add_bar_labels(self, ax, bar_location, bar_length, bar_location_right, bar_length_right):
         if self.bar_textposition:
             if self.orientation == 'h':
-                zipped = zip(bar_length, bar_location, bar_location_right, bar_length_right)            
+                zipped = zip(bar_length, bar_location, bar_length_right, bar_location_right)            
 
-            delta = .01 if self.bar_textposition == 'outside' else -.01
+            delta1 = -2
+            delta2 = .05
 
             text_objs = []
             yl = 0
@@ -412,8 +413,8 @@ class _PyramidChartRace(CommonChart):
                 xtext1, ytext1 = ax.transLimits.transform((x1, y1))
                 xtext2, ytext2 = ax.transLimits.transform((x2, y2))
                 if self.orientation == 'h':
-                    xtext1 += delta
-                    xtext2 += delta
+                    xtext1 += delta1
+                    xtext2 += delta2
                     val1 = x1
                     val2 = x2
 
@@ -429,7 +430,7 @@ class _PyramidChartRace(CommonChart):
 
                 text_obj = ax.text(xtext1, ytext1, text1, clip_on=True, **self.bar_label_font)
                 text_objs.append(text_obj)
-                text_obj = ax.text(ytext2, xtext2, text2, clip_on=True, **self.bar_label_font)
+                text_obj = ax.text(xtext2, ytext2, text2, clip_on=True, **self.bar_label_font)
                 yl += 1
                 text_objs.append(text_obj)
             return text_objs
