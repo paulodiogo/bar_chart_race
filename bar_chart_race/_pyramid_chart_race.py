@@ -396,7 +396,7 @@ class _PyramidChartRace(CommonChart):
             ax.text(transform=ax.transAxes, **text_dict)
 
     def add_bar_labels(self, ax, bar_location, bar_length, bar_location_right, bar_length_right):
-        if False:
+        if self.bar_textposition:
             if self.orientation == 'h':
                 zipped = zip(bar_length, bar_location, bar_length_right, bar_location_right)            
 
