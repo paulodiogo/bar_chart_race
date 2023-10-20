@@ -318,11 +318,9 @@ class _PyramidChartRace(CommonChart):
             else:
                 ax.set_ylim(1)
 
-        if self.fixed_max:
-            if self.orientation == 'h':
-                ax.set_xlim(None, self.fixed_max_value)
-            else:
-                ax.set_ylim(None, self.fixed_max_value)
+
+
+        ax.set_xlim(-10, 10)
 
     def create_figure(self):
         fig = plt.Figure(**self.fig_kwargs)
