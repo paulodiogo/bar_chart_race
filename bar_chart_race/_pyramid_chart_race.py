@@ -315,19 +315,7 @@ class _PyramidChartRace(CommonChart):
         return left, bottom
 
     def fix_axis_limits(self, ax):
-        if self.scale == 'log':
-            if self.orientation == 'h':
-                ax.set_xlim(1)
-            else:
-                ax.set_ylim(1)
-
-        elif self.scale == 'perc':
-
-            ax.set_xlim(-.1, .1)
-            
-        else:
-
-            ax.set_xlim(None, self.fixed_max_value)
+        ax.set_xlim(-1000000000, 1000000000)
             
 
     def create_figure(self):
