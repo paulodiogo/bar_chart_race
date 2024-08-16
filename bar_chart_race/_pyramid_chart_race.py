@@ -326,7 +326,7 @@ class _PyramidChartRace(CommonChart):
             ax.set_xlim(-.1, .1)
             
         else:
-            
+
             ax.set_xlim(None, self.fixed_max_value)
             
 
@@ -477,7 +477,7 @@ class _PyramidChartRace(CommonChart):
         def init_func():
             ax = self.fig.axes[0]
             self.plot_bars(ax, 0)
-            #ax.legend(loc='upper left', fancybox=True, shadow=True, ncol=2)
+            ax.legend(loc='upper left', fancybox=True, shadow=True, ncol=2)
 
         interval = self.period_length / self.steps_per_period
         pause = int(self.end_period_pause // interval)
