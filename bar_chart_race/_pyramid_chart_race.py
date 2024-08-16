@@ -315,7 +315,8 @@ class _PyramidChartRace(CommonChart):
         return left, bottom
 
     def fix_axis_limits(self, ax):
-        ax.set_xlim(-1000000000, 1000000000)
+        a = 1
+        #ax.set_xlim(-1000000000, 1000000000)
             
 
     def create_figure(self):
