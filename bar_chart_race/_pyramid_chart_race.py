@@ -321,7 +321,14 @@ class _PyramidChartRace(CommonChart):
             else:
                 ax.set_ylim(1)
 
-        ax.set_xlim(-.1, .1)
+        elif self.scale == 'perc':
+
+            ax.set_xlim(-.1, .1)
+            
+        else:
+            
+            ax.set_xlim(None, self.fixed_max_value)
+            
 
     def create_figure(self):
         fig = plt.Figure(**self.fig_kwargs)
